@@ -10,28 +10,28 @@ services:
 # Test를 수행하기 위한 준비
 # 구성된 도커 환경에서 Dockerfile.dev를 이용해서 도커 이미지 생성.
 before_install:
-  - docker build -t react-test-app -f ./frontend/Dockerfile.dev ./frontend
+  - docker build -t woo00oo/react-test-app -f ./frontend/Dockerfile.dev ./frontend
 
 # Test를 수행하기
 # 생성된 테스트 이미지를 이용해서 테스트 수행.
 script:
-  - docker run -e CI=true react-test-app npm run test
+  - docker run -e CI=true woo00oo/react-test-app npm run test
 
 # 모든 프로젝트의 운영버전 이미지 빌드
 # 테스트가 성공했다면 하나하나의 프로젝트의 운영버전 이미지를 빌드.
 after_success:
-  - docker build -t docker-frontend ./frontend
-  - docker build -t docker-backend ./backend
-  - docker build -t docker-nginx ./nginx
+  - docker build -t woo00oo/docker-frontend ./frontend
+  - docker build -t woo00oo/docker-backend ./backend
+  - docker build -t woo00oo/docker-nginx ./nginx
 
   # 빌드된 이미지를 도커 허브에 보내주기
   # 도커 허브에 빌드 된 파일을 넣어주기 위해 도커 허브에 로그인
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
 
   # 빌드된 이미즈를 도커허브에 보내주기
-  - docker push docker-frontend
-  - docker push docker-backend
-  - docker push docker-nginx
+  - docker push woo00oo/docker-frontend
+  - docker push woo00oo/docker-backend
+  - docker push woo00oo/docker-nginx
 
 # deploy:
 #   provider: elasticbeanstalk
