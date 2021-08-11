@@ -33,15 +33,15 @@ after_success:
   - docker push woo00oo/docker-backend
   - docker push woo00oo/docker-nginx
 
-# deploy:
-#   provider: elasticbeanstalk
-#   region: "ap-northeast-2"
-#   app: "docker-fullstack-app"
-#   env: "DockerFullstackApp-env"
-#   bucket_name: elasticbeanstalk-ap-northeast-2-972153559337
-#   bucket_path: "docker-fullstack-app"
-#   on:
-#     branch: master
+deploy:
+  provider: elasticbeanstalk #외부 서비스 표시(s3, elasticbeanstalk, firebase)
+  region: "ap-northeast-2" #현재 사용하고 있는 AWS의 서비스가 위치하고 있는 물리적 장소
+  app: "docker-fullstack-app" # 생성된 어플리케이션의 이름
+  env: "Dockerfullstackapp-env" 
+  bucket_name: elasticbeanstalk-ap-northeast-2-555236258445 # 해당 elasticbeanstalk을 위한 s3 버켓 이름
+  bucket_path: "docker-fullstack-app" #어플리케이션의 이름과 동일
+  on:
+    branch: master  #어떤 브랜치에 Push를 할때 AWS에 배포할 것인지.
   
-#   access_key_id: $AWS_ACCESS_KEY
-#   secret_access_key: $AWS_SECRET_ACCESS_KEY
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
